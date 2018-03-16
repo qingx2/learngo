@@ -14,18 +14,6 @@ var (
 	cc = 23333
 )
 
-func main() {
-	fmt.Println("Hello GoPATH")
-	variableZeroValue()
-	variableInitialValue()
-	variableTypeDeduction()
-	variableShorter()
-	fmt.Println(aa, bb, cc)
-
-	euler()
-	triangle()
-}
-
 func variableZeroValue() {
 	var a int
 	var b string
@@ -70,4 +58,63 @@ func triangle() {
 	// math.Sqrt 需要转 float64
 	c = int(math.Sqrt(float64(a*a + b*b)))
 	fmt.Println(c)
+}
+
+// 定义常量
+func consts() {
+	const (
+		filename = "adf.txt"
+		a, b     = 3, 4
+	)
+	var c int
+	// const常量数值可作为各种类型使用,所以此处的 math.Sqrt 不必像 triangle()一样强制转换为 flot64
+	c = int(math.Sqrt(a*a + b*b))
+	fmt.Println(filename, c)
+}
+
+func enums() {
+	const (
+		cpp        = iota
+		javascrpit
+		_
+		python
+		java
+		golang
+		php
+	)
+	const (
+		aa = 1 << (10 * iota)
+		bb
+		cc
+		dd
+		ee
+	)
+
+	fmt.Println(cpp, javascrpit, python, java, golang, php)
+	fmt.Println(aa, bb, cc, dd, ee)
+	fmt.Println(1 << (10 * 1))
+}
+
+// 左移、右移运算
+func shifting(a int) int {
+	a = a << 1
+	a = a >> 1
+	return a
+}
+
+func main() {
+	fmt.Println("Hello GoPATH")
+	variableZeroValue()
+	variableInitialValue()
+	variableTypeDeduction()
+	variableShorter()
+	fmt.Println(aa, bb, cc)
+
+	euler()
+	triangle()
+
+	consts()
+	enums()
+
+	fmt.Println(shifting(3))
 }
