@@ -1,5 +1,7 @@
 # Learn Golang
 
+[Google资深工程师深度讲解Go语言](https://coding.imooc.com/class/180.html)
+
 ### 语法特性
 
 ##### 基础语法
