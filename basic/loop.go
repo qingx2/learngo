@@ -1,16 +1,18 @@
 package main
 
 import (
-	"fmt"
-	"strconv"
-	"os"
 	"bufio"
+	"fmt"
+	"io"
+	"os"
+	"strconv"
+	"strings"
 )
+
 // for, if 后面的条件没有括号
 // if 条件里可以定义变量
 // 没有 while 关键字
 // switch 不需要 break, 并且可以直接 case 多个条件
-
 
 func converToBin(n int) string {
 	result := ""
@@ -30,7 +32,11 @@ func printFile(filename string) {
 		panic(err)
 	}
 
-	scanner := bufio.NewScanner(file)
+	printFileContents(file)
+}
+
+func printFileContents(reader io.Reader) {
+	scanner := bufio.NewScanner(reader)
 
 	// 相当于 while
 	for scanner.Scan() {
@@ -38,21 +44,29 @@ func printFile(filename string) {
 	}
 }
 
-func forever(){
+func forever() {
 	// 死循环 while
-	for   {
+	for {
 		fmt.Println("aaacc")
 	}
 }
 
 func main() {
 	fmt.Println(
-		//converToBin(5), // 101
+		// converToBin(5), // 101
 		converToBin(1), // 1101
-		//converToBin(1112312312321321),
+		// converToBin(1112312312321321),
 	)
 
-	printFile("aaa.txt")
+	printFile("basic/aaa.txt")
 
-	forever()
+	s := `abc"d"
+eee333
+34
+55
+
+lol`
+	printFileContents(strings.NewReader(s))
+
+	// forever()
 }
