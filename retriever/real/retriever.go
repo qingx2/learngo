@@ -1,9 +1,9 @@
 package real
 
 import (
-	"time"
 	"net/http"
 	"net/http/httputil"
+	"time"
 )
 
 type Retriever struct {
@@ -11,7 +11,7 @@ type Retriever struct {
 	TimeOut   time.Duration
 }
 
-func (r Retriever) Get(url string) string {
+func (r *Retriever) Get(url string) string {
 	resp, err := http.Get(url)
 	if err != nil {
 		panic(err)

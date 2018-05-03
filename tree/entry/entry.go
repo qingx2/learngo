@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/guopuke/learngo/tree"
 )
 
@@ -34,11 +35,11 @@ func main() {
 	fmt.Println(root)
 
 	// Second
-	//nodes := []tree.Node{
-	//	{value: 3},
-	//	{},
-	//	{5, nil, &root},
-	//}
+	// nodes := []tree.Node{
+	// 	{value: 3},
+	// 	{},
+	// 	{5, nil, &root},
+	// }
 
 	// Third
 	// 自定义工厂函数

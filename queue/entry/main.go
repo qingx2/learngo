@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/guopuke/learngo/queue"
 	"fmt"
+
+	"github.com/guopuke/learngo/queue"
 )
 
 func main() {
@@ -16,4 +17,6 @@ func main() {
 	fmt.Println(q.Pop())
 	fmt.Println(q.IsEmpty())
 
+	// q.Push("abc")
+	// fmt.Println(q.Pop())
 }
