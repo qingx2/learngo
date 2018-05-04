@@ -6,7 +6,7 @@ import (
 )
 
 func ifReadFile() {
-	const filename = "aaa.txt"
+	const filename = "basic/aaa.txt"
 	// if 的条件里赋值的变量(contents,err)作用域生命周期只在这个 if 语句里
 	if contents, err := ioutil.ReadFile(filename); err != nil {
 		fmt.Println(err)
@@ -37,5 +37,5 @@ func grade(score int) string {
 
 func main() {
 	ifReadFile()
-	fmt.Println(grade(101))
+	fmt.Println(grade(99))
 }

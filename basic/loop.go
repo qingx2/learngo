@@ -63,7 +63,7 @@ func main() {
 	s := `abc"d"
 eee333
 34
-55
+55 
 
 lol`
 	printFileContents(strings.NewReader(s))
