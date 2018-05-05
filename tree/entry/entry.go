@@ -29,7 +29,7 @@ func main() {
 	var root tree.Node
 	root = tree.Node{Value: 3}
 	root.Left = &tree.Node{}
-	root.Right = &tree.Node{4, nil, nil}
+	root.Right = &tree.Node{5, nil, nil}
 	root.Right.Left = new(tree.Node)
 
 	fmt.Println(root)
@@ -43,14 +43,14 @@ func main() {
 
 	// Third
 	// 自定义工厂函数
-	root.Left.Right = tree.CreateTreeNode(6)
+	root.Left.Right = tree.CreateTreeNode(2)
 
-	fmt.Println(root)
+	// fmt.Println(root)
 
-	root.Right.Left.SetValue(7)
-	root.Right.Left.Print()
+	root.Right.Left.SetValue(4)
+	// root.Right.Left.Print()
 
-	fmt.Println()
+	// fmt.Println()
 	root.Traverse()
 	fmt.Println()
 
@@ -58,4 +58,10 @@ func main() {
 	myRoot.postOrder()
 	fmt.Println()
 
+	nodeCount := 0
+	root.TraverseFunc(func(node *tree.Node) {
+		fmt.Println(nodeCount)
+		nodeCount++
+	})
+	fmt.Println("Node count:", nodeCount)
 }
