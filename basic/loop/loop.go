@@ -58,7 +58,7 @@ func main() {
 		// converToBin(1112312312321321),
 	)
 
-	printFile("basic/aaa.txt")
+	printFile("basic/loop/aaa.txt")
 
 	s := `abc"d"
 eee333

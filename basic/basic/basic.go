@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"math/cmplx"
 	"math"
+	"math/cmplx"
 )
 
 // 包内部变量只能使用 var 声明
@@ -38,10 +38,10 @@ func variableShorter() {
 
 // 欧拉公式
 func euler() {
-	//c :=3+4i
-	//abs := cmplx.Abs(c)
-	//fmt.Println(abs)
-	//fmt.Println(fmt.Sprintf("%T",abs))
+	// c :=3+4i
+	// abs := cmplx.Abs(c)
+	// fmt.Println(abs)
+	// fmt.Println(fmt.Sprintf("%T",abs))
 
 	// print (0+1.2246467991473515e-16i)
 	fmt.Println(cmplx.Pow(math.E, 1i*math.Pi) + 1)
@@ -54,10 +54,15 @@ func euler() {
 // 强制类型转换
 func triangle() {
 	a, b := 3, 4
+	c := calcTriangle(a, b)
+	fmt.Println(c)
+}
+
+func calcTriangle(a int, b int) int {
 	var c int
 	// math.Sqrt 需要转 float64
 	c = int(math.Sqrt(float64(a*a + b*b)))
-	fmt.Println(c)
+	return c
 }
 
 // 定义常量
