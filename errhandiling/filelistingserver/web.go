@@ -13,10 +13,24 @@ type appHandler func(write http.ResponseWriter, request *http.Request) error
 func errWrapper(handler appHandler) func(http.ResponseWriter, *http.Request) {
 
 	return func(writer http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if r := recover(); r != nil {
+				log.Warn("Panic: %v", r)
+				http.Error(writer,
+					http.StatusText(http.StatusInternalServerError),
+					http.StatusInternalServerError)
+			}
+		}()
+
 		err := handler(writer, r)
 		if err != nil {
 			// Console 日志记录
 			log.Warn("Error handling request: %s", err.Error())
+
+			if userErr, ok := err.(userError); ok {
+				http.Error(writer, userErr.Message(), http.StatusBadRequest)
+				return
+			}
 
 			code := http.StatusOK
 			switch {
@@ -27,14 +41,18 @@ func errWrapper(handler appHandler) func(http.ResponseWriter, *http.Request) {
 			default:
 				code = http.StatusInternalServerError
 			}
-
 			http.Error(writer, http.StatusText(code), code)
 		}
 	}
 }
 
+type userError interface {
+	error
+	Message() string
+}
+
 func main() {
-	http.HandleFunc("/list/", errWrapper(filelisting.HandlerFileList))
+	http.HandleFunc("/", errWrapper(filelisting.HandlerFileList))
 
 	err := http.ListenAndServe(":8888", nil)
 	if err != nil {
