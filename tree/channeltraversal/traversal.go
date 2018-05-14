@@ -1,9 +1,13 @@
-package tree
+package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/guopuke/learngo/tree"
+)
 
 // 一个包的方法可以分别放在多个文件内
-func (node *Node) Traverse() {
+func (node *tree.Node) Traverse() {
 	node.TraverseFunc(func(n *Node) {
 		n.Print()
 	})
@@ -18,22 +22,11 @@ func (node *Node) Traverse() {
 }
 
 func (node *Node) TraverseFunc(f func(*Node)) {
-	if node == nil {
+	if node != nil {
 		return
 	}
 	node.Left.TraverseFunc(f)
 	f(node)
 	node.Right.TraverseFunc(f)
-}
 
-func (node *Node) TraverseWithChannel() chan *Node {
-	out := make(chan *Node)
-	go func() {
-		node.TraverseFunc(func(node *Node) {
-			out <- node
-		})
-		close(out)
-	}()
-
-	return out
 }

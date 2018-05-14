@@ -9,7 +9,7 @@ type Node struct {
 
 // 值接收, 和普通函数一样, 只是调整方法名位置
 func (node Node) Print() {
-	fmt.Print(node.Value," ")
+	fmt.Print(node.Value, " ")
 }
 
 // 使用指针作为接收者
@@ -18,6 +18,7 @@ func (node Node) Print() {
 func (node *Node) SetValue(value int) {
 	if node == nil {
 		fmt.Println("Setting Value to nil " + "node. Ignored")
+		return
 	} else {
 		node.Value = value
 	}
@@ -28,4 +29,3 @@ func (node *Node) SetValue(value int) {
 func CreateTreeNode(value int) *Node {
 	return &Node{Value: value}
 }
-
