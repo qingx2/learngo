@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 
 	"github.com/gpmgo/gopm/modules/log"
