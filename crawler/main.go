@@ -14,8 +14,14 @@ func main() {
 	// })
 
 	// 2. Concurrent Edition
+	// e := engine.ConcurrentEngine{
+	// 	Scheduler:   &scheduler.SimpleScheduler{},
+	// 	WorkerCount: 100,
+	// }
+
+	// 3. Queue Scheduler Edition
 	e := engine.ConcurrentEngine{
-		Scheduler:   &scheduler.SimpleScheduler{},
+		Scheduler:   &scheduler.QueuedScheduler{},
 		WorkerCount: 100,
 	}
 	e.Run(engine.Request{
