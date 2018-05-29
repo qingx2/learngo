@@ -23,7 +23,12 @@ func (e SimpleEngine) Run(seeds ...Request) {
 			continue
 		}
 
-		requests = append(requests, parseResult.Requests...)
+		for _, r := range parseResult.Requests {
+			if isDuplicate(r.Url) {
+				continue
+			}
+			requests = append(requests, r)
+		}
 
 		for _, item := range parseResult.Items {
 			log.Printf("Got item %v", item)
