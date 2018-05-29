@@ -1,19 +1,14 @@
 package engine
 
-import (
-	"log"
-)
-
 type ConcurrentEngine struct {
 	Scheduler   Scheduler
 	WorkerCount int
+	ItemChan    chan interface{}
 }
 
 type Scheduler interface {
-	// WorkerReady(chan Request)
 	ReadyNotifier
 	Submit(Request)
-	// ConfigureMasterWorkerChan(chan Request)
 	WorkerChan() chan Request
 	Run()
 }
@@ -31,18 +26,23 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 	}
 
 	for _, r := range seeds {
+		if isDuplicate(r.Url) {
+			continue
+		}
 		e.Scheduler.Submit(r)
 	}
 
-	itemCount := 0
 	for {
 		result := <-out
 		for _, item := range result.Items {
-			log.Printf("Got item #%d: %v", itemCount, item)
-			itemCount++
+			// log.Printf("Got item #%d: %v", itemCount, item)
+			go func() { e.ItemChan <- item }()
 		}
 
 		for _, request := range result.Requests {
+			if isDuplicate(request.Url) {
+				continue
+			}
 			e.Scheduler.Submit(request)
 		}
 	}
