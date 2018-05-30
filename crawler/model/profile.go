@@ -1,5 +1,7 @@
 package model
 
+import "encoding/json"
+
 type Profile struct {
 	Name       string
 	Gender     string
@@ -14,4 +16,17 @@ type Profile struct {
 	Xingzuo    string
 	House      string
 	Car        string
+}
+
+func FromJsonObj(o interface{}) (Profile, error) {
+	var profile Profile
+	bytes, e := json.Marshal(o)
+
+	if e != nil {
+		return profile, e
+	}
+
+	unmarshalErr := json.Unmarshal(bytes, &profile)
+
+	return profile, unmarshalErr
 }
