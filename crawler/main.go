@@ -31,14 +31,19 @@ func main() {
 	// })
 
 	// 4. Page
+	itemChan, err := persist.ItemSaver("crawler_dating_profile")
+	if err != nil {
+		panic(err)
+	}
+
 	e := engine.ConcurrentEngine{
 		Scheduler:   &scheduler.QueuedScheduler{},
 		WorkerCount: 100,
-		ItemChan:    persist.ItemSaver(),
+		ItemChan:    itemChan,
 	}
 	e.Run(engine.Request{
-		Url:        "http://www.zhenai.com/zhenghun/shanghai",
-		ParserFunc: parser.ParseCity,
+		Url:        "http://www.zhenai.com/zhenghun",
+		ParserFunc: parser.ParseCityList,
 	})
 
 }

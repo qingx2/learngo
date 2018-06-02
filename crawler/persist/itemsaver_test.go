@@ -15,8 +15,7 @@ func TestSave(t *testing.T) {
 		Url:  "http://album.zhenai.com/u/108906739",
 		Type: "zhenai",
 		Id:   "108906739",
-		Payload:
-		model.Profile{
+		Payload: model.Profile{
 			Name:       "冰之泪",
 			Age:        47,
 			Height:     170,
@@ -35,8 +34,14 @@ func TestSave(t *testing.T) {
 
 	// Need Docker elasticsearch service support
 
+	client, err := elastic.NewClient(elastic.SetSniff(false))
+	if err != nil {
+		panic(err)
+	}
+
+	const index = "dating_test"
 	// Save expected item
-	err := save(expected)
+	err = save(client, index, expected)
 	if err != nil {
 		panic(err)
 	}
@@ -47,7 +52,7 @@ func TestSave(t *testing.T) {
 	}
 
 	result, i := client.Get().
-		Index("dating_profile").
+		Index(index).
 		Type(expected.Type).
 		Id(expected.Id).
 		Do(context.Background())
@@ -58,7 +63,10 @@ func TestSave(t *testing.T) {
 	t.Logf("%s", result.Source)
 
 	var actual engine.Item
-	json.Unmarshal(*result.Source, &actual)
+	err = json.Unmarshal(*result.Source, &actual)
+	if err != nil {
+		panic(err)
+	}
 
 	actualProfile, _ := model.FromJsonObj(actual.Payload)
 	actual.Payload = actualProfile

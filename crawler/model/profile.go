@@ -26,7 +26,7 @@ func FromJsonObj(o interface{}) (Profile, error) {
 		return profile, e
 	}
 
-	unmarshalErr := json.Unmarshal(bytes, &profile)
+	e = json.Unmarshal(bytes, &profile)
 
-	return profile, unmarshalErr
+	return profile, e
 }
