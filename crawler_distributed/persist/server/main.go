@@ -1,15 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
+	"github.com/guopuke/learngo/crawler_distributed/config"
 	"github.com/guopuke/learngo/crawler_distributed/persist"
 	"github.com/guopuke/learngo/crawler_distributed/rpcsupport"
 	"github.com/olivere/elastic"
 )
 
 func main() {
-	log.Fatal(serveRpc(":1234", "crawler_dating_profile"))
+	port := config.ItemSaverPort
+	log.Fatal(serveRpc(fmt.Sprintf(":%d", port), config.ElasticIndex))
 	// client, err := elastic.NewClient(elastic.SetSniff(false))
 	// if err != nil {
 	// 	panic(err)

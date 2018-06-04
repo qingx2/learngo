@@ -6,6 +6,7 @@ import (
 
 	"github.com/guopuke/learngo/crawler/engine"
 	"github.com/guopuke/learngo/crawler/model"
+	"github.com/guopuke/learngo/crawler_distributed/config"
 	"github.com/guopuke/learngo/crawler_distributed/rpcsupport"
 )
 
@@ -45,7 +46,7 @@ func TestItemSaver(t *testing.T) {
 	}
 
 	result := ""
-	err = client.Call("ItemSaverService.Save", item, &result)
+	err = client.Call(config.ItemSaverRpc, item, &result)
 
 	if err != nil || result != "ok" {
 		t.Errorf("result: %s; err: %s", result, err)

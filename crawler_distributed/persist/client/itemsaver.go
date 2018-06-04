@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/guopuke/learngo/crawler/engine"
+	"github.com/guopuke/learngo/crawler_distributed/config"
 	"github.com/guopuke/learngo/crawler_distributed/rpcsupport"
 )
 
@@ -23,7 +24,7 @@ func ItemSaver(host string) (chan engine.Item, error) {
 
 			// Call RPC to save item
 			result := ""
-			e := client.Call("ItemSaverService.Save", item, &result)
+			e := client.Call(config.ItemSaverRpc, item, &result)
 			if e != nil {
 				log.Printf("Item Saver: error saving item %v: %v", item, e)
 			}
