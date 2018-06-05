@@ -16,7 +16,7 @@ func (e SimpleEngine) Run(seeds ...Request) {
 		r := requests[0]
 		requests = requests[1:]
 
-		parseResult, e := worker(r)
+		parseResult, e := Worker(r)
 		if e != nil {
 			continue
 		}

@@ -5,6 +5,7 @@ import (
 	"regexp"
 
 	"github.com/guopuke/learngo/crawler/engine"
+	"github.com/guopuke/learngo/crawler_distributed/config"
 )
 
 const cityListRe = `<a href="(http://www.zhenai.com/zhenghun/[0-9a-z]+)"[^>]*>([^<]+)</a>`
@@ -21,7 +22,7 @@ func ParseCityList(contents []byte, _ string) engine.ParseResult {
 		result.Requests = append(
 			result.Requests, engine.Request{
 				Url:    string(m[1]),
-				Parser: engine.NewFuncParser(ParseCity, "ParseCity"),
+				Parser: engine.NewFuncParser(ParseCity, config.ParseCity),
 			})
 		fmt.Printf("City: %s, URL: %s\n", m[2], m[1])
 	}

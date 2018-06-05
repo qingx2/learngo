@@ -4,6 +4,7 @@ import (
 	"regexp"
 
 	"github.com/guopuke/learngo/crawler/engine"
+	"github.com/guopuke/learngo/crawler_distributed/config"
 )
 
 var (
@@ -20,7 +21,7 @@ func ParseCity(contents []byte, _ string) engine.ParseResult {
 		// rs.Items = append(rs.Items, "User "+name)
 
 		rs.Requests = append(rs.Requests, engine.Request{
-			Url:        string(m[1]),
+			Url:    string(m[1]),
 			Parser: NewProfileParser(string(m[2])),
 		})
 	}
@@ -29,7 +30,7 @@ func ParseCity(contents []byte, _ string) engine.ParseResult {
 	for _, m := range cityMatches {
 		rs.Requests = append(rs.Requests, engine.Request{
 			Url:    string(m[1]),
-			Parser: engine.NewFuncParser(ParseCity, "ParseCity"),
+			Parser: engine.NewFuncParser(ParseCity, config.ParseCity),
 		})
 	}
 

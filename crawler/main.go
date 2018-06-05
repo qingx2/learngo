@@ -5,6 +5,7 @@ import (
 	"github.com/guopuke/learngo/crawler/persist"
 	"github.com/guopuke/learngo/crawler/scheduler"
 	"github.com/guopuke/learngo/crawler/zhenai/parser"
+	"github.com/guopuke/learngo/crawler_distributed/config"
 )
 
 func main() {
@@ -44,7 +45,7 @@ func main() {
 	e.Run(engine.Request{
 		Url: "http://www.zhenai.com/zhenghun",
 		Parser: engine.NewFuncParser(
-			parser.ParseCityList, "ParseCityList"),
+			parser.ParseCityList, config.ParseCityList),
 	})
 
 }

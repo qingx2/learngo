@@ -1,5 +1,7 @@
 package engine
 
+import "github.com/guopuke/learngo/crawler_distributed/config"
+
 type ParserFunc func(contents []byte, url string) ParseResult
 
 type Parser interface {
@@ -31,7 +33,7 @@ func (NilParser) Parser(_ []byte, _ string) ParseResult {
 }
 
 func (NilParser) Serialize() (name string, args interface{}) {
-	return "NilParser", nil
+	return config.NilParser, nil
 }
 
 type FuncParser struct {
